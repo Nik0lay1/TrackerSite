@@ -37,9 +37,9 @@ $translations = require "lang/{$lang}.php";
         <div class="flex justify-end mb-4">
             <form id="languageForm" method="GET" action="">
                 <select name="lang" class="p-2 border border-gray-300 rounded-md" onchange="document.getElementById('languageForm').submit();">
-                    <option value="en" <?php if ($lang == 'en') echo 'selected'; ?>>English</option>
-                    <option value="uk" <?php if ($lang == 'uk') echo 'selected'; ?>>Українська</option>
-                    <option value="ru" <?php if ($lang == 'ru') echo 'selected'; ?>>Русский</option>
+                    <option value="en" <?php if ($lang == 'en') echo 'selected'; ?>English</option>
+                    <option value="uk" <?php if ($lang == 'uk') echo 'selected'; ?>Українська</option>
+                    <option value="ru" <?php if ($lang == 'ru') echo 'selected'; ?>Русский</option>
                 </select>
             </form>
         </div>
