@@ -11,7 +11,7 @@ return [
     'benefit_3' => 'Перевага особливості 3',
     'feature_4' => 'Особливість 4',
     'benefit_4' => 'Перевага особливості 4',
-    'name_placeholder' => 'Ім\'я',
+    'name_placeholder' => 'Імя',
     'email_placeholder' => 'Емейл',
     'register_button' => 'Зареєструватися',
 ];
