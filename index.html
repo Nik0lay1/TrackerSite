@@ -1,9 +1,27 @@
+<?php
+session_start();
+
+// Визначення мови за замовчуванням
+$defaultLang = 'en';
+
+// Зберігаємо вибір мови в сесії
+if (isset($_GET['lang'])) {
+    $lang = $_GET['lang'];
+    $_SESSION['lang'] = $lang;
+} else {
+    $lang = $_SESSION['lang'] ?? $defaultLang;
+}
+
+// Завантаження перекладів
+$translations = require "lang/{$lang}.php";
+?>
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="<?php echo htmlspecialchars($lang); ?>">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Main Page</title>
+    <title><?php echo htmlspecialchars($translations['title']); ?></title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         .icon {
@@ -19,17 +37,17 @@
         <div class="flex justify-end mb-4">
             <form id="languageForm" method="GET" action="">
                 <select name="lang" class="p-2 border border-gray-300 rounded-md" onchange="document.getElementById('languageForm').submit();">
-                    <option value="en" selected>English</option>
-                    <option value="uk">Українська</option>
-                    <option value="ru">Русский</option>
+                    <option value="en" <?php if ($lang == 'en') echo 'selected'; ?>>English</option>
+                    <option value="uk" <?php if ($lang == 'uk') echo 'selected'; ?>>Українська</option>
+                    <option value="ru" <?php if ($lang == 'ru') echo 'selected'; ?>>Русский</option>
                 </select>
             </form>
         </div>
 
         <!-- Main Titles -->
         <div class="text-center mb-8">
-            <h1 class="text-4xl font-bold mb-2">Welcome to Our Website</h1>
-            <h2 class="text-xl text-gray-600">Your gateway to amazing features</h2>
+            <h1 class="text-4xl font-bold mb-2"><?php echo htmlspecialchars($translations['welcome']); ?></h1>
+            <h2 class="text-xl text-gray-600"><?php echo htmlspecialchars($translations['subtitle']); ?></h2>
         </div>
 
         <!-- Features Section -->
@@ -37,29 +55,29 @@
             <div class="flex items-center p-4 border border-gray-300 rounded-lg shadow-sm">
                 <img src="https://img.icons8.com/?size=100&id=11232&format=png&color=000000" alt="Feature 1" class="icon">
                 <div class="ml-4">
-                    <h3 class="font-semibold">Feature 1</h3>
-                    <p>Benefit of Feature 1</p>
+                    <h3 class="font-semibold"><?php echo htmlspecialchars($translations['feature_1']); ?></h3>
+                    <p><?php echo htmlspecialchars($translations['benefit_1']); ?></p>
                 </div>
             </div>
             <div class="flex items-center p-4 border border-gray-300 rounded-lg shadow-sm">
                 <img src="https://img.icons8.com/?size=100&id=13634&format=png&color=000000" alt="Feature 2" class="icon">
                 <div class="ml-4">
-                    <h3 class="font-semibold">Feature 2</h3>
-                    <p>Benefit of Feature 2</p>
+                    <h3 class="font-semibold"><?php echo htmlspecialchars($translations['feature_2']); ?></h3>
+                    <p><?php echo htmlspecialchars($translations['benefit_2']); ?></p>
                 </div>
             </div>
             <div class="flex items-center p-4 border border-gray-300 rounded-lg shadow-sm">
                 <img src="https://img.icons8.com/?size=100&id=21636&format=png&color=000000" alt="Feature 3" class="icon">
                 <div class="ml-4">
-                    <h3 class="font-semibold">Feature 3</h3>
-                    <p>Benefit of Feature 3</p>
+                    <h3 class="font-semibold"><?php echo htmlspecialchars($translations['feature_3']); ?></h3>
+                    <p><?php echo htmlspecialchars($translations['benefit_3']); ?></p>
                 </div>
             </div>
             <div class="flex items-center p-4 border border-gray-300 rounded-lg shadow-sm">
                 <img src="https://img.icons8.com/?size=100&id=7163&format=png&color=000000" alt="Feature 4" class="icon">
                 <div class="ml-4">
-                    <h3 class="font-semibold">Feature 4</h3>
-                    <p>Benefit of Feature 4</p>
+                    <h3 class="font-semibold"><?php echo htmlspecialchars($translations['feature_4']); ?></h3>
+                    <p><?php echo htmlspecialchars($translations['benefit_4']); ?></p>
                 </div>
             </div>
         </div>
@@ -67,12 +85,12 @@
         <!-- Registration Form -->
         <form class="flex flex-col items-center" method="POST" action="form_handler.php">
             <div class="mb-4 w-full max-w-md">
-                <input type="text" name="name" placeholder="Name" class="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500" required>
+                <input type="text" name="name" placeholder="<?php echo htmlspecialchars($translations['name_placeholder']); ?>" class="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500" required>
             </div>
             <div class="mb-4 w-full max-w-md">
-                <input type="email" name="email" placeholder="Email" class="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500" required>
+                <input type="email" name="email" placeholder="<?php echo htmlspecialchars($translations['email_placeholder']); ?>" class="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500" required>
             </div>
-            <button type="submit" class="w-full max-w-md py-3 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none">Register</button>
+            <button type="submit" class="w-full max-w-md py-3 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none"><?php echo htmlspecialchars($translations['register_button']); ?></button>
         </form>
     </div>
 </body>
