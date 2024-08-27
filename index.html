@@ -12,8 +12,19 @@ if (isset($_GET['lang'])) {
     $lang = $_SESSION['lang'] ?? $defaultLang;
 }
 
-// Завантаження перекладів
-$translations = require "lang/{$lang}.php";
+// Перевірка наявності мовного файлу
+$langFile = "lang/{$lang}.php";
+if (file_exists($langFile)) {
+    $translations = require $langFile;
+} else {
+    // Якщо файлу не існує, використовуємо мову за замовчуванням
+    $translations = require "lang/{$defaultLang}.php";
+}
+
+// Перевірка, чи правильно завантажився масив
+if (!is_array($translations)) {
+    die("Translation file is not returning an array");
+}
 ?>
 
 <!DOCTYPE html>
@@ -37,9 +48,9 @@ $translations = require "lang/{$lang}.php";
         <div class="flex justify-end mb-4">
             <form id="languageForm" method="GET" action="">
                 <select name="lang" class="p-2 border border-gray-300 rounded-md" onchange="document.getElementById('languageForm').submit();">
-                    <option value="en" <?php if ($lang == 'en') echo 'selected'; ?>English</option>
-                    <option value="uk" <?php if ($lang == 'uk') echo 'selected'; ?>Українська</option>
-                    <option value="ru" <?php if ($lang == 'ru') echo 'selected'; ?>Русский</option>
+                    <option value="en" <?php if ($lang == 'en') echo 'selected'; ?>>English</option>
+                    <option value="uk" <?php if ($lang == 'uk') echo 'selected'; ?>>Українська</option>
+                    <option value="ru" <?php if ($lang == 'ru') echo 'selected'; ?>>Русский</option>
                 </select>
             </form>
         </div>
